@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0B2A4A" />
+<title>MMLI School Database</title>
+<meta name="description" content="Mind Masters Liberia Initiative — internal school information database." />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="assets/mmli-logo.png" />
+<link rel="apple-touch-icon" href="assets/mmli-logo.png" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ Optional local-access screen (NOT security) ============ -->
+  <div id="lock-screen" class="lock-screen" hidden>
+    <div class="lock-card">
+      <img src="assets/mmli-logo.png" alt="" class="lock-logo" />
+      <h1>MMLI School Database</h1>
+      <p class="lock-note">Enter the local access code for this device.</p>
+      <form id="lock-form">
+        <input type="password" id="lock-input" placeholder="Access code" autocomplete="off" inputmode="text" />
+        <button type="submit" class="btn btn-primary btn-block">Unlock</button>
+      </form>
+      <p class="lock-disclaimer">
+        This is a local convenience screen only — it is <strong>not</strong> real security.
+        Anyone with access to this browser/device and dev tools can bypass it.
+      </p>
+    </div>
+  </div>
+
+  <div id="app" class="app" hidden>
+
+    <!-- ============ Top bar ============ -->
+    <header class="topbar">
+      <div class="topbar-brand">
+        <img src="assets/mmli-logo.png" alt="MMLI logo" class="brand-logo" />
+        <div class="brand-text">
+          <span class="brand-title">MMLI</span>
+          <span class="brand-subtitle">School Database</span>
+        </div>
+      </div>
+      <button id="offline-pill" class="offline-pill" hidden>Offline</button>
+    </header>
+
+    <!-- ============ Main routed content ============ -->
+    <main id="view-root" class="view-root" tabindex="-1"></main>
+
+    <!-- ============ Bottom navigation ============ -->
+    <nav class="bottom-nav" aria-label="Primary">
+      <a href="#/dashboard" class="nav-item" data-route="dashboard">
+        <span class="nav-icon" aria-hidden="true">&#9635;</span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="#/directory" class="nav-item" data-route="directory">
+        <span class="nav-icon" aria-hidden="true">&#9776;</span>
+        <span class="nav-label">Directory</span>
+      </a>
+      <a href="#/add" class="nav-item nav-item-add" data-route="add">
+        <span class="nav-icon nav-icon-add" aria-hidden="true">+</span>
+        <span class="nav-label">Add</span>
+      </a>
+      <a href="#/backup" class="nav-item" data-route="backup">
+        <span class="nav-icon" aria-hidden="true">&#8681;</span>
+        <span class="nav-label">Backup</span>
+      </a>
+      <a href="#/settings" class="nav-item" data-route="settings">
+        <span class="nav-icon" aria-hidden="true">&#9881;</span>
+        <span class="nav-label">Settings</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- ============ Toasts & Modals (shared containers) ============ -->
+  <div id="toast-root" class="toast-root" aria-live="polite"></div>
+  <div id="modal-root"></div>
+
+  <script src="database.js"></script>
+  <script src="backup.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
