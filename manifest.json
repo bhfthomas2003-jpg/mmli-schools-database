@@ -1,0 +1,19 @@
+{
+  "name": "MMLI School Database",
+  "short_name": "MMLI Schools",
+  "description": "Mind Masters Liberia Initiative — internal school information database.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F5F7FA",
+  "theme_color": "#0B2A4A",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/mmli-logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
