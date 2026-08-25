@@ -126,5 +126,42 @@ const MMLI_BACKUP = (() => {
     await MMLI_DB.clearAll();
   }
 
-  return { exportJSON, exportCSV, importJSON, clearAllData, parseAndValidate };
+  // Public showcase export: a small, privacy-safe JSON of Confirmed schools
+  // only (no principal/coach contact details), meant to be committed to the
+  // repo so a separate public page (showcase.html) — or an embed on your
+  // main website — can display it without touching this device's data.
+  async function exportConfirmedShowcase() {
+    const schools = await MMLI_DB.getAll();
+    const confirmed = schools
+      .filter((s) => s.followUpStatus === "Confirmed")
+      .map((s) => ({
+        schoolName: s.schoolName,
+        schoolType: s.schoolType,
+        community: s.community || "",
+        county: s.county || "",
+        confirmedDate: s.followUpDate || "",
+      }))
+      .sort((a, b) => a.schoolName.localeCompare(b.schoolName));
+
+    const payload = {
+      generatedAt: new Date().toISOString(),
+      count: confirmed.length,
+      schools: confirmed,
+    };
+    downloadBlob(
+      JSON.stringify(payload, null, 2),
+      "confirmed-schools.json",
+      "application/json"
+    );
+    return confirmed.length;
+  }
+
+  return {
+    exportJSON,
+    exportCSV,
+    importJSON,
+    clearAllData,
+    parseAndValidate,
+    exportConfirmedShowcase,
+  };
 })();
