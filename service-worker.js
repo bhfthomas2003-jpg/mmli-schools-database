@@ -5,7 +5,7 @@
    is local to this GitHub Pages site.
    ========================================================= */
 
-const CACHE_NAME = "mmli-school-db-v3";
+const CACHE_NAME = "mmli-school-db-v4";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -14,6 +14,8 @@ const CORE_ASSETS = [
   "./database.js",
   "./backup.js",
   "./manifest.json",
+  "./showcase.html",
+  "./confirmed-schools.json",
 ];
 
 self.addEventListener("install", (event) => {
