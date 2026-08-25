@@ -43,13 +43,15 @@ MMLI-School-Database/
 ├── index.html          → App shell and layout (logo is built in — no upload needed)
 ├── style.css            → All styling (navy / gold / white / gray theme)
 ├── app.js                → App logic: navigation, forms, lists, profile view
-├── database.js           → IndexedDB read/write logic
-├── backup.js              → Export JSON/CSV, import/restore, clear data
-├── manifest.json           → Lets you "install" the site like an app (logo built in)
-├── service-worker.js        → Enables offline use after first load
-├── README.md                → This file
+├── database.js            → IndexedDB read/write logic
+├── backup.js               → Export JSON/CSV, import/restore, clear data
+├── manifest.json            → Lets you "install" the site like an app (logo built in)
+├── service-worker.js         → Enables offline use after first load
+├── showcase.html               → Public "Confirmed Schools" page (animated)
+├── confirmed-schools.json        → Data feed for showcase.html — re-export & re-upload to update
+├── README.md                       → This file
 └── assets/
-    └── mmli-logo.png          → Optional spare copy of the logo — not required by the app
+    └── mmli-logo.png                  → Optional spare copy of the logo — not required by the app
 ```
 
 The MMLI logo is **embedded directly inside `index.html` and `manifest.json`**
@@ -142,6 +144,36 @@ In **Settings → Clear All Data**, you must type
 `DELETE ALL SCHOOL DATA` exactly before the delete button is enabled. This
 is intentional — it prevents accidental data loss. Export a backup first if
 there's any chance you'll need the data again.
+
+---
+
+## Public "Confirmed Schools" showcase
+
+There's a second, animated page — `showcase.html` — meant for your main
+website or for sharing directly. It displays only schools whose **follow-up
+status is Confirmed**, with the school's name, type, and location (no
+principal or coach contact details).
+
+**How it works:** the school database lives only on your phone, so a page on
+a different website can't read it live. Instead, you export a small snapshot
+file whenever your confirmed list changes, and the showcase page reads that
+file.
+
+**To publish or update it:**
+1. In the app, go to **Settings → Public Showcase → Export Confirmed
+   Schools**.
+2. This downloads `confirmed-schools.json`.
+3. Upload that file to your GitHub repo, **overwriting the existing file of
+   the same name**, and commit.
+4. The showcase page updates automatically — no code changes needed.
+
+**To link or embed it on your main website**, once deployed at
+`https://YOUR-USERNAME.github.io/MMLI-School-Database/showcase.html`, either:
+- Add a plain link: `<a href="https://YOUR-USERNAME.github.io/MMLI-School-Database/showcase.html">See our confirmed partner schools</a>`
+- Or embed it directly: `<iframe src="https://YOUR-USERNAME.github.io/MMLI-School-Database/showcase.html" style="width:100%; height:800px; border:0;"></iframe>`
+
+The showcase page works entirely on its own — no login, no database, just
+the JSON file sitting next to it in the repo.
 
 ---
 
