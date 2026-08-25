@@ -825,6 +825,7 @@
   /* ----------------------- Settings ----------------------- */
 
   function renderSettings() {
+    const confirmedCount = allSchools.filter((s) => s.followUpStatus === "Confirmed").length;
     viewRoot.innerHTML = `
       <h1 class="page-title">Settings</h1>
       <p class="page-sub">Data management for this device.</p>
@@ -856,6 +857,24 @@
         </div>
       </div>
 
+      <div class="section-title">Public Showcase</div>
+      <div class="action-list">
+        <div class="action-card" id="s-export-showcase" role="button" tabindex="0" style="--i:0">
+          <div class="action-icon">&#127775;</div>
+          <div class="action-text">
+            <div class="action-title">Export Confirmed Schools</div>
+            <div class="action-sub">${confirmedCount} confirmed — for the public showcase page</div>
+          </div>
+        </div>
+      </div>
+      <div class="settings-note">
+        This downloads <strong>confirmed-schools.json</strong>. Upload it to your
+        GitHub repo (overwriting the existing file of that name) whenever your
+        confirmed list changes, and the animated showcase page — and anything
+        linking or embedding it on your main website — updates automatically.
+        No contact details are included, only school name, type, and location.
+      </div>
+
       <div class="settings-note">
         MMLI School Database v1.0 — runs entirely on this device via IndexedDB. No servers, accounts, or external databases are used. Data does not sync between devices or browsers — export a backup regularly.
       </div>
@@ -874,6 +893,11 @@
     importInput.addEventListener("change", handleImportFile);
 
     document.getElementById("s-clear-all").addEventListener("click", confirmClearAll);
+
+    document.getElementById("s-export-showcase").addEventListener("click", async () => {
+      const count = await MMLI_BACKUP.exportConfirmedShowcase();
+      toast(`Exported ${count} confirmed school(s)`, "success");
+    });
   }
 
   function confirmClearAll() {
